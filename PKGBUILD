@@ -1,6 +1,6 @@
 _pkgname=RedPanda-CPP
 pkgname=${_pkgname,,}
-pkgver=3.0
+pkgver=3.1
 pkgrel=1
 pkgdesc='A fast, lightweight, open source, and cross platform C/C++/GNU Assembly IDE'
 arch=('i686' 'pentium4' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64' 'riscv64')
@@ -22,7 +22,7 @@ source=(
     "$_pkgname-$pkgver.tar.gz::https://github.com/royqh1979/$_pkgname/archive/refs/tags/v$pkgver.tar.gz"
     'compiler_hint.lua'
 )
-sha256sums=('82142ed470f15bdb31a9b4e5fccc733d0a357b40f5d116311a1698fb8325c11c'
+sha256sums=('96a3c5883de50ed42dc0000b654050c1043da411d85c48877e63ffc71382093a'
             '207f409d93100575e1d01842475880f6a78f095680246d98e61e72d272671448')
 
 prepare() {
