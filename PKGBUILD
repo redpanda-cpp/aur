@@ -1,13 +1,13 @@
 _pkgname=RedPanda-CPP
 pkgname=${_pkgname,,}
-pkgver=3.1
+pkgver=3.2
 pkgrel=1
 pkgdesc='A fast, lightweight, open source, and cross platform C/C++/GNU Assembly IDE'
-arch=('i686' 'pentium4' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64' 'riscv64')
+arch=('i686' 'pentium4' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64' 'riscv64' 'loong64')
 url="https://github.com/royqh1979/$_pkgname"
 license=('GPL3')
-depends=(qt5-base qt5-svg gcc gdb astyle)
-makedepends=(qt5-tools imagemagick librsvg)
+depends=(qt6-base qt6-svg gcc gdb astyle)
+makedepends=(qt6-tools imagemagick librsvg)
 optdepends=(
     'clang: C/C++ compiler (alternative)'
 )
@@ -22,8 +22,8 @@ source=(
     "$_pkgname-$pkgver.tar.gz::https://github.com/royqh1979/$_pkgname/archive/refs/tags/v$pkgver.tar.gz"
     'compiler_hint.lua'
 )
-sha256sums=('96a3c5883de50ed42dc0000b654050c1043da411d85c48877e63ffc71382093a'
-            '207f409d93100575e1d01842475880f6a78f095680246d98e61e72d272671448')
+sha256sums=('dc2267d793a553373a78c8a4624e908fab9bc1624c3abd12da5a1278d58219f7'
+            '6f887af50757c2ec7d57806b78119e0271c424db2119fbc62d111c2122c06b0c')
 
 prepare() {
     sed -i '/CONFIG += ENABLE_LUA_ADDON/ { s/^#\s*// }' "$srcdir/$_pkgname-$pkgver/RedPandaIDE/RedPandaIDE.pro"
@@ -32,7 +32,7 @@ prepare() {
 build() {
     mkdir redpanda-build
     cd redpanda-build
-    qmake \
+    qmake6 \
         PREFIX='/usr' \
         LIBEXECDIR='/usr/lib' \
         "$srcdir/$_pkgname-$pkgver/Red_Panda_CPP.pro"
