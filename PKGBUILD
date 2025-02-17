@@ -1,7 +1,7 @@
 _pkgname=RedPanda-CPP
 pkgname=${_pkgname,,}
 pkgver=3.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast, lightweight, open source, and cross platform C/C++/GNU Assembly IDE'
 arch=('i686' 'pentium4' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64' 'riscv64' 'loong64')
 url="https://github.com/royqh1979/$_pkgname"
@@ -21,12 +21,16 @@ optdepends_x86_64=(
 source=(
     "$_pkgname-$pkgver.tar.gz::https://github.com/royqh1979/$_pkgname/archive/refs/tags/v$pkgver.tar.gz"
     'compiler_hint.lua'
+    '0001-fix-crash-when-debug.patch'
 )
 sha256sums=('dc2267d793a553373a78c8a4624e908fab9bc1624c3abd12da5a1278d58219f7'
-            '6f887af50757c2ec7d57806b78119e0271c424db2119fbc62d111c2122c06b0c')
+            '6f887af50757c2ec7d57806b78119e0271c424db2119fbc62d111c2122c06b0c'
+            '632d966f60999ba121fe37c297ef3f02128bb53f845d7630e0f3839df232bd4d')
 
 prepare() {
-    sed -i '/CONFIG += ENABLE_LUA_ADDON/ { s/^#\s*// }' "$srcdir/$_pkgname-$pkgver/RedPandaIDE/RedPandaIDE.pro"
+    cd "$srcdir/$_pkgname-$pkgver"
+    sed -i '/CONFIG += ENABLE_LUA_ADDON/ { s/^#\s*// }' "RedPandaIDE/RedPandaIDE.pro"
+    patch -Np1 <"$srcdir/0001-fix-crash-when-debug.patch"
 }
 
 build() {
