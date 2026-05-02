@@ -1,7 +1,7 @@
 _pkgname=RedPanda-CPP
 pkgname=${_pkgname,,}
 pkgver=3.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast, lightweight, open source, and cross platform C/C++/GNU Assembly IDE'
 arch=('i686' 'pentium4' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64' 'riscv64' 'loong64')
 url="https://github.com/royqh1979/$_pkgname"
@@ -21,13 +21,16 @@ optdepends_x86_64=(
 source=(
     "$_pkgname-$pkgver.tar.gz::https://github.com/royqh1979/$_pkgname/archive/refs/tags/v$pkgver.tar.gz"
     'compiler_hint.lua'
+    'qt6-compatibility.patch'
 )
 sha256sums=('4f49075e1cd163038ce571893583e56cacad8e33bde5d18765f270b0b57a4876'
-            '6f887af50757c2ec7d57806b78119e0271c424db2119fbc62d111c2122c06b0c')
+            '6f887af50757c2ec7d57806b78119e0271c424db2119fbc62d111c2122c06b0c'
+            'fda70ac4c09154a347d18c0ae90b7075415a19f4742285f2cc2b4425a221a638')
 
 prepare() {
     cd "$srcdir/$_pkgname-$pkgver"
     sed -i '/CONFIG += ENABLE_LUA_ADDON/ { s/^#\s*// }' "RedPandaIDE/RedPandaIDE.pro"
+    patch -Np1 -i "$srcdir/qt6-compatibility.patch"
 }
 
 build() {
